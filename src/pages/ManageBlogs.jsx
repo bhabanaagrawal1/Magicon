@@ -49,7 +49,7 @@ const ManageBlogs = () => {
 
     if (title && longDesc && shortDesc && image && date && readTime) {
       try {
-        const response = await axios.post("https://my-json-server.typicode.com/bhabanaagrawal1/json/blogs", formValue);
+        const response = await axios.post("http://localhost:5000/blogs", formValue);
         if (response.status === 201) {
           toast.success("Blog created successfully");
           setFormValue(initialState);
@@ -69,7 +69,7 @@ const ManageBlogs = () => {
 
   return (
     <div className="w-full h-[100vh] p-6 flex flex-col items-center justify-center">
-      <h1 className="w-full h-[10%] text-3xl font-bold bg-gradient-to-br from-blue-500 to-pink-300 bg-clip-text text-transparent text-center p-2">
+      <h1 className="w-full h-auto text-3xl font-bold bg-gradient-to-br from-orange-400 to-yellow-300 bg-clip-text text-transparent text-center p-2">
         Create Blog Posts
       </h1>
 
@@ -131,7 +131,7 @@ const ManageBlogs = () => {
         />
         <button
           type="submit"
-          className="col-span-2 text-pink-100 bg-gradient-to-br from-blue-500 to-pink-300 p-2.5 rounded hover:opacity-90 transition font-semibold"
+          className="col-span-2 text-black bg-gradient-to-br from-orange-400 to-yellow-300 p-2.5 rounded hover:opacity-90 transition font-semibold"
         >
           Add Blog
         </button>

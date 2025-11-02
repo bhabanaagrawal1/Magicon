@@ -10,7 +10,7 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`https://my-json-server.typicode.com/bhabanaagrawal1/json/blogs/${id}`);
+        const res = await axios.get(`http://localhost:5000/blogs/${id}`);
         setBlog(res.data);
       } catch (err) {
         toast.error("Failed to fetch blog");

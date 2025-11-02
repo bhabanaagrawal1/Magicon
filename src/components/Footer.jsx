@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
     <div>
-      <div className='w-full h-[40vh] bg-gray-200 mt-5 rounded-sm'>
+      <div className='w-full h-auto pt-5 pb-7 bg-gray-200 mt-5 rounded-sm'>
         <div className='w-full md:h-[80%] md:flex md:justify-between md:items-center block h-auto p-4 bg-gray-200'>
           <div className='md:w-[25%] md:h-[100%] md:flex md:justify-center md:items-center w-[95%]'>
             <div className='md:w-[95%] md:h-[95%] md:flex md:justify-center md:items-center'>

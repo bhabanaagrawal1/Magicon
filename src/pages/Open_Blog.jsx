@@ -50,7 +50,7 @@ const Open_Blog = () => {
             </div>
         </div>
     </div>
-    <div className='w-full md:h-[90vh] flex justify-center items-center'>
+    {/* <div className='w-full md:h-[90vh] flex justify-center items-center'>
         <div className='w-[95%] md:h-[90%] flex flex-col items-center'>
             <h1 className='text-4xl mb-5 font-semibold'>DISNEY STARS</h1>
         <div className='md:w-[80%] md:h-[90%] flex md:justify-evenly md:items-center md:flex-row flex-col w-[90%]'>
@@ -77,7 +77,69 @@ const Open_Blog = () => {
             </div>
         </div>
         </div>
+    </div> */}
+    <div className="w-full md:h-[90vh] flex justify-center items-center">
+  <div className="w-[95%] md:h-[90%] flex flex-col items-center">
+    <h1 className="text-4xl mb-5 font-semibold">DISNEY STARS</h1>
+
+    <div className="md:w-[80%] md:h-[90%] flex md:justify-evenly md:items-center md:flex-row flex-col w-[90%]">
+      
+      {/* Card 1 */}
+      <div className="relative md:w-[30%] h-[90%] flex flex-col items-center pt-10 md:pt-0">
+        <p className="w-full md:h-[15%] md:p-3 p-2 flex justify-center items-center">
+          <div className="w-[90%] text-center">{data.mus_1_info}</div>
+        </p>
+        <div className="relative w-full md:h-[85%] h-[400px]">
+          <img
+            src={data.mus_1_image}
+            className="object-cover w-full h-full"
+            alt=""
+          />
+          <h1 className="absolute left-[2%] top-[35%] -translate-y-1/2 -rotate-90 origin-left text-2xl font-semibold">
+            {data.mus_1_name}
+          </h1>
+        </div>
+      </div>
+
+      {/* Card 2 */}
+      <div className="relative md:w-[30%] h-[90%] flex flex-col items-center pt-10 md:pt-0">
+        <p className="w-full md:h-[15%] md:p-3 p-2 flex justify-center items-center">
+          <div className="w-[90%] text-center">{data.mus_2_info}</div>
+        </p>
+        <div className="relative w-full md:h-[85%] h-[400px]">
+          <img
+            src={data.mus_2_image}
+            className="object-cover w-full h-full"
+            alt=""
+          />
+          <h1 className="absolute left-[2%] top-[35%] -translate-y-1/2 -rotate-90 origin-left text-2xl font-semibold">
+            {data.mus_2_name}
+          </h1>
+        </div>
+      </div>
+
+      {/* Card 3 */}
+      <div className="relative md:w-[30%] h-[90%] flex flex-col items-center pt-10 md:pt-0">
+        <p className="w-full md:h-[15%] md:p-3 p-2 flex justify-center items-center">
+          <div className="w-[90%] text-center">{data.mus_3_info}</div>
+        </p>
+        <div className="relative w-full md:h-[85%] h-[400px]">
+          <img
+            src={data.mus_3_image}
+            className="object-cover w-full h-full"
+            alt=""
+          />
+          <h1 className="absolute left-[2%] top-[35%] -translate-y-1/2 -rotate-90 origin-left text-2xl font-semibold">
+            {data.mus_3_name}
+          </h1>
+        </div>
+      </div>
+
     </div>
+  </div>
+</div>
+
+  
     <div className='w-[100%] flex justify-center items-center'>
         <div className='w-full flex justify-center items-center'>
         <div className='md:w-[70%] w-[85%] flex flex-col font-sans addCss mb-7' dangerouslySetInnerHTML={{__html: data.description}}>

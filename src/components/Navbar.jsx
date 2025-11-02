@@ -7,9 +7,16 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const logout = () => {
+  const confirmed = window.confirm("Are you sure you want to log out?");
+  if (confirmed) {
     localStorage.removeItem("user");
+    alert("You have been logged out successfully!");
     navigate("/");
-  };
+  } else {
+    alert("Logout cancelled.");
+  }
+};
+
 
   return (
     <>
@@ -22,17 +29,17 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="hidden md:flex justify-center items-center gap-10 text-white mr-10">
-          <NavLink to="/home" className="hover:text-blue-600">
+          <NavLink to="/home" className="hover:text-red-400">
             $ Home
           </NavLink>
 
-          <NavLink to="/ManageBlogs" className="hover:text-blue-600">
+          <NavLink to="/ManageBlogs" className="hover:text-red-400">
             $ Create Blogs
           </NavLink>
 
           <button
             onClick={logout}
-            className="pt-[5px] pr-[13px] pb-[5px] pl-[13px] bg-gradient-to-r from-purple-900 via-blue-600 to-blue-300 rounded-2xl cursor-pointer hover:bg-gradient-to-br hover:from-blue-600 hover:to-purple-800 hover:scale-105 transition"
+            className="pt-[5px] pr-[13px] pb-[5px] pl-[13px] bg-gradient-to-r from-red-600 via-orange-600 to-yellow-300 rounded-2xl cursor-pointer hover:bg-gradient-to-br hover:from-yellow-600 hover:to-red-500 hover:scale-105 transition"
           >
             $ Logout
           </button>
@@ -70,7 +77,7 @@ const Navbar = () => {
         <NavLink
           to="/home"
           onClick={() => setIsOpen(false)}
-          className="text-0.5xl hover:text-violet-300 text-white"
+          className="text-0.5xl hover:text-red-400 text-white"
         >
           Home
         </NavLink>
@@ -78,7 +85,7 @@ const Navbar = () => {
         <NavLink
           to="/ManageBlogs"
           onClick={() => setIsOpen(false)}
-          className="text-0.5xl hover:text-violet-300 text-white"
+          className="text-0.5xl hover:text-red-400 text-white"
         >
           Create Blogs
         </NavLink>
@@ -88,7 +95,7 @@ const Navbar = () => {
             setIsOpen(false);
             logout();
           }}
-          className="text-0.5xl hover:text-violet-300 text-white"
+          className="text-0.5xl hover:text-red-400 text-white"
         >
           Logout
         </button>
