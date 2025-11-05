@@ -23,13 +23,15 @@ db.connect((err) => {
   console.log("✅ Connected to Clever Cloud MySQL Database");
 
   const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS blogs (
+     CREATE TABLE IF NOT EXISTS blogs (
       id INT AUTO_INCREMENT PRIMARY KEY,
-      title VARCHAR(255) NOT NULL,
-      content TEXT NOT NULL,
-      image_url VARCHAR(500),
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
+      title VARCHAR(255),
+      date VARCHAR(100),
+      readTime VARCHAR(50),
+      shortDesc TEXT,
+      longDesc LONGTEXT,
+      image VARCHAR(500)
+    );
   `;
   db.query(createTableQuery, (err) => {
     if (err) console.error("❌ Error creating blogs table:", err);
