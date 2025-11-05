@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 10000;
 
 const server = http.createServer((req, res) => {
   // Handle CORS
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "https://mymagicon.netlify.app");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -22,12 +22,12 @@ const server = http.createServer((req, res) => {
   // Root route
   if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("🎉 Backend is working perfectly! Try /blogs to fetch blogs.");
+    res.end("🎉 Backend is working! Try /blogs to fetch blogs.");
   }
 
   // Get all blogs
   else if (req.method === "GET" && req.url === "/blogs") {
-    db.query("SELECT * FROM blogs ORDER BY created_at DESC", (err, results) => {
+    db.query("SELECT * FROM blogs ORDER BY id DESC", (err, results) => {
       if (err) {
         console.error("❌ Error fetching blogs:", err);
         res.writeHead(500, { "Content-Type": "application/json" });
