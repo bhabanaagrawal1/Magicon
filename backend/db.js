@@ -4,25 +4,29 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const pool = mysql.createPool({
+const db = mysql.createConnection({
   host: process.env.MYSQL_ADDON_HOST,
   user: process.env.MYSQL_ADDON_USER,
   password: process.env.MYSQL_ADDON_PASSWORD,
   database: process.env.MYSQL_ADDON_DB,
   port: process.env.MYSQL_ADDON_PORT || 3306,
-  ssl: { rejectUnauthorized: false },
+  ssl: {
+    rejectUnauthorized: false, // allow self-signed certs
+  },
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 });
 
-pool.getConnection((err, connection) => {
+// Connect to MySQL
+db.connect((err) => {
   if (err) {
     console.error("❌ Error connecting to MySQL:", err);
     return;
   }
   console.log("✅ Connected to MySQL Database");
 
+  // Create blogs table if not exists
   const createTableQuery = `
     CREATE TABLE IF NOT EXISTS blogs (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,11 +40,11 @@ pool.getConnection((err, connection) => {
     );
   `;
 
-  connection.query(createTableQuery, (err) => {
+  db.query(createTableQuery, (err) => {
     if (err) console.error("❌ Error creating blogs table:", err);
     else console.log("✅ blogs table is ready!");
-    connection.release(); // return connection to pool
   });
 });
 
-export default pool.promise(); // use promise-based API for cleaner async/await
+export default db;
+

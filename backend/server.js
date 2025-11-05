@@ -7,10 +7,9 @@ dotenv.config();
 
 const PORT = process.env.PORT || 10000;
 
-// Allowed origins for CORS
 const allowedOrigins = [
-  "http://localhost:5173",                 // local React dev
-  "https://magicneverfades.netlify.app",  // Netlify frontend
+  "http://localhost:5173",           // React dev server
+  "https://magicneverfades.netlify.app", // Your Netlify frontend
 ];
 
 const server = http.createServer((req, res) => {
@@ -20,7 +19,7 @@ const server = http.createServer((req, res) => {
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   } else {
-    res.setHeader("Access-Control-Allow-Origin", "*"); // fallback
+    res.setHeader("Access-Control-Allow-Origin", "*");
   }
 
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
@@ -67,7 +66,7 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // Add new blog
+  // Add a new blog
   else if (req.method === "POST" && req.url === "/add-blog") {
     let body = "";
     req.on("data", (chunk) => (body += chunk));
@@ -103,12 +102,11 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // Delete blog by id
+  // Delete a blog
   else if (req.method === "DELETE" && req.url.startsWith("/blogs/")) {
     const id = req.url.split("/")[2];
     db.query("DELETE FROM blogs WHERE id = ?", [id], (err, result) => {
       if (err) {
-        console.error("❌ Error deleting blog:", err);
         res.writeHead(500, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Failed to delete blog" }));
       } else {
@@ -118,7 +116,7 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // 404 fallback
+  // 404 handler
   else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "Not found" }));
