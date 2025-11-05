@@ -21,7 +21,7 @@ const ManageBlogs = () => {
 
   const { image, title, date, readTime, shortDesc, longDesc } = formValue;
 
-  // ✅ 1️⃣ Fetch all blogs when the component loads
+  // Fetch all blogs (optional if you want to show current list)
   useEffect(() => {
     fetchBlogs();
   }, []);
@@ -36,70 +36,80 @@ const ManageBlogs = () => {
     }
   };
 
-  // ✅ 2️⃣ Handle input change
+  // Handle input change
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
   };
 
-  // ✅ 3️⃣ Upload image to Cloudinary
-  const onUploadImage = (file) => {
+  // Upload image to Cloudinary
+  const onUploadImage = async (file) => {
     setFileName(file.name);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", import.meta.env.VITE_UPLOAD_PRESET);
 
-    axios
-      .post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}/image/upload`,formData)
-      .then((resp) => {
-        toast.info("Image uploaded successfully");
-        setFormValue({ ...formValue, image: resp.data.secure_url });
-      })
-      .catch((err) => {
-        toast.error("Image upload failed");
-        console.error(err);
-      });
-  };
-
-  // ✅ 4️⃣ Add new blog
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (title && longDesc && shortDesc && image && date && readTime) {
-      try {
-        const response = await axios.post("https://magicon.onrender.com/blogs", {
-          title,
-          date,
-          readTime,
-          shortDesc,
-          longDesc,
-          image,
-        });
-
-        if (response.status === 201 || response.status === 200) {
-          toast.success("Blog created successfully");
-          setFormValue(initialState);
-          setFileName("");
-          fetchBlogs(); // refresh blog list
-        } else {
-          toast.error("Failed to create blog");
-        }
-      } catch (err) {
-        toast.error("Server error - please try again");
-        console.error(err);
-      }
-    } else {
-      toast.warn("Please fill all fields");
+    try {
+      const resp = await axios.post(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}/image/upload`,
+        formData
+      );
+      toast.info("Image uploaded successfully");
+      setFormValue({ ...formValue, image: resp.data.secure_url });
+    } catch (err) {
+      toast.error("Image upload failed");
+      console.error(err);
     }
   };
 
+  // Add new blog
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!title || !longDesc || !shortDesc || !image || !date || !readTime) {
+      toast.warn("Please fill all fields");
+      return;
+    }
+
+    try {
+      const response = await axios.post("https://magicon.onrender.com/blogs", {
+        title,
+        date,
+        readTime,
+        shortDesc,
+        longDesc,
+        image,
+      });
+
+      if (response.status === 201 || response.status === 200) {
+        toast.success("Blog created successfully");
+        // reset form
+        setFormValue(initialState);
+        setFileName("");
+
+        // Fetch updated blogs immediately
+        fetchBlogs();
+
+        // Optional: redirect to homepage to see the new card
+        navigate("/");
+      } else {
+        toast.error("Failed to create blog");
+      }
+    } catch (err) {
+      toast.error("Server error - please try again");
+      console.error(err);
+    }
+  };
 
   return (
-    <div className="w-full h-[100vh] p-6 flex flex-col items-center justify-center">
-      <h1 className="w-full h-auto text-3xl font-bold bg-gradient-to-br from-orange-400 to-yellow-300 bg-clip-text text-transparent text-center p-2">
+    <div className="w-full min-h-screen p-6 flex flex-col items-center justify-center bg-gray-50">
+      <h1 className="text-3xl font-bold text-center bg-gradient-to-br from-orange-400 to-yellow-300 bg-clip-text text-transparent mb-6">
         Create Blog Posts
       </h1>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 bg-white p-4 shadow-lg rounded-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-2 gap-4 bg-white p-6 shadow-lg rounded-lg w-full max-w-4xl"
+      >
         <input
           type="text"
           name="title"
@@ -157,7 +167,7 @@ const ManageBlogs = () => {
         />
         <button
           type="submit"
-          className="col-span-2 text-black bg-gradient-to-br from-orange-400 to-yellow-300 p-2.5 rounded hover:opacity-90 transition font-semibold"
+          className="col-span-2 text-black bg-gradient-to-br from-orange-400 to-yellow-300 p-3 rounded hover:opacity-90 transition font-semibold"
         >
           Add Blog
         </button>
@@ -167,5 +177,3 @@ const ManageBlogs = () => {
 };
 
 export default ManageBlogs;
-
-

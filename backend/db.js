@@ -4,29 +4,25 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
   host: process.env.MYSQL_ADDON_HOST,
   user: process.env.MYSQL_ADDON_USER,
   password: process.env.MYSQL_ADDON_PASSWORD,
   database: process.env.MYSQL_ADDON_DB,
   port: process.env.MYSQL_ADDON_PORT || 3306,
-  ssl: {
-    rejectUnauthorized: false, // allow self-signed certs
-  },
+  ssl: { rejectUnauthorized: false },
   waitForConnections: true,
-  connectionLimit: 10, // adjust as needed
+  connectionLimit: 10,
   queueLimit: 0,
 });
 
-// Connect to MySQL
-db.connect((err) => {
+pool.getConnection((err, connection) => {
   if (err) {
     console.error("❌ Error connecting to MySQL:", err);
     return;
   }
-  console.log("✅ Connected to Clever Cloud MySQL Database");
+  console.log("✅ Connected to MySQL Database");
 
-  // Create table with your columns + created_at
   const createTableQuery = `
     CREATE TABLE IF NOT EXISTS blogs (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -40,10 +36,11 @@ db.connect((err) => {
     );
   `;
 
-  db.query(createTableQuery, (err) => {
+  connection.query(createTableQuery, (err) => {
     if (err) console.error("❌ Error creating blogs table:", err);
     else console.log("✅ blogs table is ready!");
+    connection.release(); // return connection to pool
   });
 });
 
-export default db;
+export default pool.promise(); // use promise-based API for cleaner async/await
