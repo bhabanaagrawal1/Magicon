@@ -7,9 +7,10 @@ dotenv.config();
 
 const PORT = process.env.PORT || 10000;
 
+// Allowed origins for CORS
 const allowedOrigins = [
-  "http://localhost:5173",              // Local React dev
-  "https://magicneverfades.netlify.app" // Your Netlify frontend
+  "http://localhost:5173",                 // local React dev
+  "https://magicneverfades.netlify.app",  // Netlify frontend
 ];
 
 const server = http.createServer((req, res) => {
@@ -19,7 +20,7 @@ const server = http.createServer((req, res) => {
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   } else {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "*"); // fallback
   }
 
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
@@ -51,16 +52,14 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // Get single blog by ID
+  // Get single blog by id
   else if (req.method === "GET" && req.url.startsWith("/blogs/")) {
     const id = req.url.split("/")[2];
     db.query("SELECT * FROM blogs WHERE id = ?", [id], (err, results) => {
       if (err) {
+        console.error("❌ Error fetching blog:", err);
         res.writeHead(500, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Failed to fetch blog" }));
-      } else if (results.length === 0) {
-        res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Blog not found" }));
       } else {
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(results));
@@ -68,10 +67,11 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // Add a new blog
+  // Add new blog
   else if (req.method === "POST" && req.url === "/add-blog") {
     let body = "";
     req.on("data", (chunk) => (body += chunk));
+
     req.on("end", () => {
       try {
         const { title, date, readTime, shortDesc, longDesc, image } = JSON.parse(body);
@@ -103,11 +103,12 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // Delete a blog
+  // Delete blog by id
   else if (req.method === "DELETE" && req.url.startsWith("/blogs/")) {
     const id = req.url.split("/")[2];
     db.query("DELETE FROM blogs WHERE id = ?", [id], (err, result) => {
       if (err) {
+        console.error("❌ Error deleting blog:", err);
         res.writeHead(500, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Failed to delete blog" }));
       } else {
@@ -117,7 +118,7 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // 404 handler
+  // 404 fallback
   else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "Not found" }));
