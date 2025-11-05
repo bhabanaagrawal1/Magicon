@@ -8,19 +8,20 @@ dotenv.config();
 const PORT = process.env.PORT || 10000;
 
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://magicneverfades.netlify.app",
+  "http://localhost:5173",              // Local React dev
+  "https://magicneverfades.netlify.app" // Your Netlify frontend
 ];
 
-const server = http.createServer(async (req, res) => {
+const server = http.createServer((req, res) => {
   const origin = req.headers.origin;
 
-  // CORS
+  // Handle CORS
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   } else {
     res.setHeader("Access-Control-Allow-Origin", "*");
   }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -30,66 +31,96 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  try {
-    // Root route
-    if (req.method === "GET" && req.url === "/") {
-      res.writeHead(200, { "Content-Type": "text/plain" });
-      res.end("🎉 Backend is working! Try /blogs to fetch blogs.");
-    }
+  // Root route
+  if (req.method === "GET" && req.url === "/") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("🎉 Backend is working! Try /blogs to fetch blogs.");
+  }
 
-    // Get all blogs
-    else if (req.method === "GET" && req.url === "/blogs") {
-      const [rows] = await db.query("SELECT * FROM blogs ORDER BY id DESC");
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(rows));
-    }
+  // Get all blogs
+  else if (req.method === "GET" && req.url === "/blogs") {
+    db.query("SELECT * FROM blogs ORDER BY id DESC", (err, results) => {
+      if (err) {
+        console.error("❌ Error fetching blogs:", err);
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Failed to fetch blogs" }));
+      } else {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(results));
+      }
+    });
+  }
 
-    // Add new blog
-    else if (req.method === "POST" && req.url === "/blogs") { // use /blogs to match frontend
-      let body = "";
-      req.on("data", (chunk) => (body += chunk));
+  // Get single blog by ID
+  else if (req.method === "GET" && req.url.startsWith("/blogs/")) {
+    const id = req.url.split("/")[2];
+    db.query("SELECT * FROM blogs WHERE id = ?", [id], (err, results) => {
+      if (err) {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Failed to fetch blog" }));
+      } else if (results.length === 0) {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Blog not found" }));
+      } else {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(results));
+      }
+    });
+  }
 
-      req.on("end", async () => {
-        try {
-          const { title, date, readTime, shortDesc, longDesc, image } = JSON.parse(body);
+  // Add a new blog
+  else if (req.method === "POST" && req.url === "/add-blog") {
+    let body = "";
+    req.on("data", (chunk) => (body += chunk));
+    req.on("end", () => {
+      try {
+        const { title, date, readTime, shortDesc, longDesc, image } = JSON.parse(body);
 
-          if (!title || !shortDesc || !longDesc) {
-            res.writeHead(400, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ error: "Title, shortDesc, and longDesc are required" }));
-            return;
-          }
-
-          const [result] = await db.query(
-            "INSERT INTO blogs (title, date, readTime, shortDesc, longDesc, image) VALUES (?, ?, ?, ?, ?, ?)",
-            [title, date || null, readTime || null, shortDesc, longDesc, image || null]
-          );
-
-          res.writeHead(201, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ message: "✅ Blog added successfully!", id: result.insertId }));
-        } catch {
+        if (!title || !shortDesc || !longDesc) {
           res.writeHead(400, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ error: "Invalid JSON format" }));
+          res.end(JSON.stringify({ error: "Title, shortDesc, and longDesc are required" }));
+          return;
         }
-      });
-    }
 
-    // Delete blog
-    else if (req.method === "DELETE" && req.url.startsWith("/blogs/")) {
-      const id = req.url.split("/")[2];
-      await db.query("DELETE FROM blogs WHERE id = ?", [id]);
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ message: "✅ Blog deleted successfully" }));
-    }
+        db.query(
+          "INSERT INTO blogs (title, date, readTime, shortDesc, longDesc, image) VALUES (?, ?, ?, ?, ?, ?)",
+          [title, date || null, readTime || null, shortDesc, longDesc, image || null],
+          (err, result) => {
+            if (err) {
+              console.error("❌ Error inserting blog:", err);
+              res.writeHead(500, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ error: "Failed to add blog" }));
+            } else {
+              res.writeHead(201, { "Content-Type": "application/json" });
+              res.end(JSON.stringify({ message: "✅ Blog added successfully!", id: result.insertId }));
+            }
+          }
+        );
+      } catch {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Invalid JSON format" }));
+      }
+    });
+  }
 
-    // 404
-    else {
-      res.writeHead(404, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ error: "Not found" }));
-    }
-  } catch (err) {
-    console.error(err);
-    res.writeHead(500, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: "Server error" }));
+  // Delete a blog
+  else if (req.method === "DELETE" && req.url.startsWith("/blogs/")) {
+    const id = req.url.split("/")[2];
+    db.query("DELETE FROM blogs WHERE id = ?", [id], (err, result) => {
+      if (err) {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Failed to delete blog" }));
+      } else {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ message: "✅ Blog deleted successfully" }));
+      }
+    });
+  }
+
+  // 404 handler
+  else {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "Not found" }));
   }
 });
 
