@@ -1,10 +1,10 @@
 import http from "http";
 import db from "./db.js";
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const server = http.createServer((req, res) => {
-  // Handle CORS
+  // ✅ Handle CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -15,10 +15,18 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // ✅ Root route (Render health check)
+  if (req.method === "GET" && req.url === "/") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("🎉 Backend is working perfectly! Try /blogs to fetch blogs.");
+    return;
+  }
+
   // ✅ GET all blogs
   if (req.method === "GET" && req.url === "/blogs") {
     db.query("SELECT * FROM blogs", (err, results) => {
       if (err) {
+        console.error("Error fetching blogs:", err);
         res.writeHead(500, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Failed to fetch blogs" }));
       } else {
@@ -39,6 +47,7 @@ const server = http.createServer((req, res) => {
 
     db.query("SELECT * FROM blogs WHERE id = ?", [id], (err, results) => {
       if (err) {
+        console.error("Error fetching blog:", err);
         res.writeHead(500, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Failed to fetch blog" }));
       } else if (results.length === 0) {
@@ -46,7 +55,7 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify({ error: "Blog not found" }));
       } else {
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(results[0])); // return a single object
+        res.end(JSON.stringify(results[0]));
       }
     });
   }
@@ -57,13 +66,23 @@ const server = http.createServer((req, res) => {
     req.on("data", (chunk) => {
       body += chunk;
     });
+
     req.on("end", () => {
       try {
         const { title, date, readTime, shortDesc, longDesc, image } = JSON.parse(body);
+
+        if (!title || !date || !readTime || !shortDesc || !longDesc || !image) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "All fields are required" }));
+          return;
+        }
+
         const sql =
           "INSERT INTO blogs (title, date, readTime, shortDesc, longDesc, image) VALUES (?, ?, ?, ?, ?, ?)";
+
         db.query(sql, [title, date, readTime, shortDesc, longDesc, image], (err, result) => {
           if (err) {
+            console.error("Error inserting blog:", err);
             res.writeHead(500, { "Content-Type": "application/json" });
             res.end(JSON.stringify({ error: "Failed to insert blog" }));
           } else {
@@ -78,11 +97,12 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // ✅ DELETE blog by id
+  // ✅ DELETE blog by ID
   else if (req.method === "DELETE" && req.url.startsWith("/blogs/")) {
     const id = req.url.split("/")[2];
     db.query("DELETE FROM blogs WHERE id = ?", [id], (err, result) => {
       if (err) {
+        console.error("Error deleting blog:", err);
         res.writeHead(500, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Failed to delete blog" }));
       } else {
@@ -92,7 +112,7 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // Default 404
+  // ✅ Default 404 route
   else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "Not found" }));
@@ -100,6 +120,3 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
-
-
-
