@@ -13,6 +13,9 @@ const db = mysql.createConnection({
   ssl: {
     rejectUnauthorized: false, // allow self-signed certs
   },
+  waitForConnections: true,
+  connectionLimit: 10, // adjust as needed
+  queueLimit: 0,
 });
 
 // Connect to MySQL
