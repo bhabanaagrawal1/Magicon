@@ -10,7 +10,7 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/blogs/${id}`);
+        const res = await axios.get(`https://magicon.onrender.com/blogs/${id}`);
         // ✅ MySQL returns an array, so take the first object
         if (Array.isArray(res.data) && res.data.length > 0) {
           setBlog(res.data[0]);

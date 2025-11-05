@@ -7,9 +7,21 @@ dotenv.config();
 
 const PORT = process.env.PORT || 10000;
 
+const allowedOrigins = [
+  "http://localhost:5173",          // your local React dev server
+  "https://magicneverfades.netlify.app",  // your Netlify frontend
+];
+
 const server = http.createServer((req, res) => {
+  const origin = req.headers.origin;
+
   // Handle CORS
-  res.setHeader("Access-Control-Allow-Origin", "https://mymagicon.netlify.app");
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    res.setHeader("Access-Control-Allow-Origin", "*"); // fallback
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
