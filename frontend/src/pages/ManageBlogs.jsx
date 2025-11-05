@@ -171,7 +171,7 @@ const ManageBlogs = () => {
 
   const fetchBlogs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/blogs");
+      const res = await axios.get("https://magicon.onrender.com/blogs");
       setBlogs(res.data);
     } catch (err) {
       console.error("Error fetching blogs:", err);
@@ -209,7 +209,7 @@ const ManageBlogs = () => {
     e.preventDefault();
     if (title && longDesc && shortDesc && image && date && readTime) {
       try {
-        const response = await axios.post("http://localhost:5000/blogs", {
+        const response = await axios.post("https://magicon.onrender.com/blogs", {
           title,
           date,
           readTime,

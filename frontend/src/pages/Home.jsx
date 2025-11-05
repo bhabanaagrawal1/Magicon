@@ -22,7 +22,7 @@ const Home = () => {
     loadBlogsData()
   },[])
   const loadBlogsData = async () =>{
-    const response = await axios.get("http://localhost:5000/blogs")
+    const response = await axios.get("https://magicon.onrender.com/blogs")
     if(response.status === 200){
       setData(response.data)
     }else{
@@ -32,7 +32,7 @@ const Home = () => {
 
   const handleDelete = async (id) => {
     if(window.confirm("Are you sure that you wanted to delete that blog ?")){
-      const response = await axios.delete(`http://localhost:5000/blogs/${id}`)
+      const response = await axios.delete(`https://magicon.onrender.com/blogs/${id}`)
     if(response.status === 200){
       toast.success("Blog deleted successfully")
       loadBlogsData()
