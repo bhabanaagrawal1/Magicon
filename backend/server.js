@@ -46,17 +46,17 @@ const server = http.createServer((req, res) => {
 
     req.on("end", () => {
       try {
-        const { title, content, image_url } = JSON.parse(body);
+        const { title, date, readTime, shortDesc, longDesc, image } = JSON.parse(body);
 
-        if (!title || !content) {
+        if (!title || !shortDesc || !longDesc) {
           res.writeHead(400, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ error: "Title and content are required" }));
+          res.end(JSON.stringify({ error: "Title, shortDesc, and longDesc are required" }));
           return;
         }
 
         db.query(
-          "INSERT INTO blogs (title, content, image_url) VALUES (?, ?, ?)",
-          [title, content, image_url || null],
+          "INSERT INTO blogs (title, date, readTime, shortDesc, longDesc, image) VALUES (?, ?, ?, ?, ?, ?)",
+          [title, date || null, readTime || null, shortDesc, longDesc, image || null],
           (err, result) => {
             if (err) {
               console.error("❌ Error inserting blog:", err);

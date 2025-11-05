@@ -11,10 +11,11 @@ const db = mysql.createConnection({
   database: process.env.MYSQL_ADDON_DB,
   port: process.env.MYSQL_ADDON_PORT || 3306,
   ssl: {
-    rejectUnauthorized: false, // ⚡ allow self-signed certs
+    rejectUnauthorized: false, // allow self-signed certs
   },
 });
 
+// Connect to MySQL
 db.connect((err) => {
   if (err) {
     console.error("❌ Error connecting to MySQL:", err);
@@ -22,17 +23,20 @@ db.connect((err) => {
   }
   console.log("✅ Connected to Clever Cloud MySQL Database");
 
+  // Create table with your columns + created_at
   const createTableQuery = `
-     CREATE TABLE IF NOT EXISTS blogs (
+    CREATE TABLE IF NOT EXISTS blogs (
       id INT AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(255),
       date VARCHAR(100),
       readTime VARCHAR(50),
       shortDesc TEXT,
       longDesc LONGTEXT,
-      image VARCHAR(500)
+      image VARCHAR(500),
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
+
   db.query(createTableQuery, (err) => {
     if (err) console.error("❌ Error creating blogs table:", err);
     else console.log("✅ blogs table is ready!");
