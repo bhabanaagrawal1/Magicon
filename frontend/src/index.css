@@ -1,0 +1,7 @@
+@import "tailwindcss";
+html{
+    scroll-behavior: smooth;
+}
+.addCss h1 { text-align: left; font-size: 25px; margin-bottom:8px; margin-top:12px ; font-weight: 600;}
+.addCss p {margin-top:8px; font-size: 14px; font-family:'Roboto';}
+
