@@ -44,9 +44,9 @@ const Home = () => {
   return (
  <div>
       <Navbar/>
-      <div className="bg-[linear-gradient(rgba(10,25,47,0.3),rgba(0,0,70,0.4)),url('https://i.pinimg.com/736x/cf/69/76/cf6976d564527efd2ef908de11e6ed8e.jpg')]  w-full md:h-auto h-[100vh] bg-no-repeat bg-cover z-0  bg-center bg-gradient-to-b from-transparent to-black/80">
+      <div className="bg-[linear-gradient(rgba(10,25,47,0.1),rgba(0,0,70,0.4)),url('https://i.pinimg.com/736x/cf/69/76/cf6976d564527efd2ef908de11e6ed8e.jpg')]  w-full md:h-auto h-[100vh] bg-no-repeat bg-cover z-0  bg-center bg-gradient-to-b from-transparent to-black/80">
         <div className='md:pt-73 md:translate-y-[0%] translate-y-[55%] text-center  text-white'>
-          <span className='text-[20px] bg-white/20 backdrop-blur-md px-4 py-2 rounded-full'><i className="ri-shining-fill font-sans">Relive the Magic</i></span>
+          <span className='text-[20px] bg-white/20 px-4 py-2 rounded-full'><i className="ri-shining-fill font-sans"></i>Relive the Magic</span>
           <h1 className='md:text-[3.1rem] md:m-5 md:mb-0 text-[1.5rem] mt-3 ml-5 mr-5 font-extrabold '>Because Some Magic Never Fades</h1>
           <p className='md:text-[1rem] text-sm text-shadow-indigo-200 md:ml-60 ml-7 mr-7 md:mr-60 mt-3 font-semibold md:mb-60'>Step into a world of wonder, where every story sparkles and every moment feels like magic.
 Discover the heart of Disneyland — the happiest place on Earth.</p>
@@ -307,7 +307,7 @@ Discover the heart of Disneyland — the happiest place on Earth.</p>
             "url(https://cdn-imgix.headout.com/media/images/2d7daf8d-596e-4c7a-a8aa-4de074a9400b-1755578127366-303541.jpg?auto=format&w=828&h=619.1999999999999&q=90&ar=3%3A4&crop=faces%2Ccenter&fit=crop)",
         }}
       ></div>
-      <h1 className="relative z-10 flex justify-start items-end w-full h-full p-4 md:text-4xl text-2xl font-semibold leading-snug">
+      <h1 className="relative z-10 flex md:justify-start justify-center md:items-end items-center md:text-start text-center w-full h-full p-4 md:text-4xl text-2xl font-semibold leading-snug">
         Blogs Published
         <br />
         {sum}

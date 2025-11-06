@@ -68,6 +68,14 @@ export const CardData =[
       image:"https://disneyexperiences.com/app/uploads/sites/7/2024/12/240917_ST_1027-1A-scaled.jpg",
    },
    {
+      id: "1",
+  date: "29 Mar 2025",
+  readTime: "4 min read",
+  title: "Toy story mania – Disneyland",
+  subheading: "Hop aboard a ride through nostalgia — where classic toys, colorful lights, and cheerful tunes bring childhood joy back to life in every corner of Toy Trolley Park.",
+      image:"https://i.pinimg.com/1200x/f2/93/bf/f293bfc521136df872d67deaff2c44eb.jpg",
+   },
+   {
       id: "6",
   date: "1 Oct 2025",
   readTime: "4 min read",
@@ -75,21 +83,13 @@ export const CardData =[
   subheading: "Where toys come alive and imagination runs wild — step into Andy’s backyard for a day of wonder, play, and endless smiles.",
    image:"https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,f_jpg,g_xy_center,h_675,q_65,w_1200,x_895,y_820/v1/clients/orlandofl/2317_toy_story_land_swirling_saucers_2b6a9e26-dee4-41e2-afc0-88b60964fbe2.jpg",
    },
-   {
-      id: "1",
-  date: "29 Mar 2025",
-  readTime: "4 min read",
-  title: "Toy story mania – Disneyland",
-  subheading: "Hop aboard a ride through nostalgia — where classic toys, colorful lights, and cheerful tunes bring childhood joy back to life in every corner of Toy Trolley Park.",
-      image:"https://blog-cdn.touringplans.com/blog/wp-content/uploads/2023/05/Toy-Story-Mania-Getting-to-Know-cover.jpg",
-   },
 ]
 
 export const OpenBlog = [
   {
   id: "6",
   bgposition: "center",
-  image: "https://images.unsplash.com/photo-1641302109100-15c44a4c1079?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870",
+  image: "https://i.pinimg.com/736x/b9/95/14/b9951403d366bbc4e743a48784d909dc.jpg",
   title: "TOYLAND",
   subheading: "Step into a world where toys come alive, laughter fills the air, and imagination knows no bounds.",
   info: "Disneyland – 1 Oct 2025",
@@ -111,6 +111,37 @@ export const OpenBlog = [
     <h1>Joy that Lasts Forever</h1>
     <p>As the day ends, Toyland glows under twinkling lights and laughter echoes long after the rides stop. This is more than entertainment — it’s a celebration of imagination, friendship, and memories that stay with every visitor long after they leave.</p>
     <p>Toyland 2025 is proof that Disneyland isn’t just a park — it’s a place where dreams take shape, where play never ends, and where the joy of childhood lives forever.</p>`
+},
+{
+  id: "1",
+  bgposition: "center",
+  image: "https://i.pinimg.com/1200x/0c/a9/74/0ca974bb94ffd4948696634a8251116c.jpg",
+  title: "TOY STORY MANIA",
+  subheading: "Hop aboard a colorful journey where toys, laughter, and adventure come alive.",
+  info: "Disneyland – 29 Mar 2025",
+  mus_1_name: "Elsa of Arendelle",
+  mus_1_info: "Bringing icy magic and dazzling light to every trolley ride.",
+  mus_1_image: "https://i.pinimg.com/736x/92/f1/d5/92f1d5e7ebe2d22a7ae25284f0ffd235.jpg",
+  mus_2_name: "Olaf the Snowman",
+  mus_2_info: "Spreading joy, laughter, and whimsical fun at every turn.",
+  mus_2_image: "https://i.pinimg.com/736x/c5/72/f6/c572f68c23c1ff3f1332169ab0a67e79.jpg",
+  mus_3_name: "Anna of Arendelle",
+  mus_3_info: "Adding courage, cheer, and heartwarming moments.",
+  mus_3_image: "https://i.pinimg.com/1200x/f6/ec/a1/f6eca1f97a6244d541d322bdd3e3b8f7.jpg",
+  description: `<h1>Toy Trolley Park 2025: Where Imagination Rides Free</h1>
+      <p>Toy Trolley Park transforms Disneyland into a vibrant playground where visitors of all ages step into a world of wonder. Every ride, every corner, and every trolley car is infused with playful charm and the joy of discovery.</p>
+
+      <h1>Guided by Beloved Characters</h1>
+      <p>Elsa leads the adventure with magical ice and light, Olaf spreads joy and laughter at every turn, and Anna brings courage and heartwarming fun. Each encounter creates lasting memories and invites guests to embrace the magic of play.</p>
+
+      <h1>Interactive Rides and Adventures</h1>
+      <p>Every trolley ride offers surprises — music, moving toys, and whimsical scenery combine to create an immersive experience. Guests explore imaginative landscapes where toys are alive, stories unfold, and laughter fills the air.</p>
+
+      <h1>A Feast for the Senses</h1>
+      <p>Bright colors, lively tunes, and detailed scenery immerse visitors in a world of playful wonder. Every corner is thoughtfully designed to spark creativity and nostalgia, making both children and adults feel like part of the magic.</p>
+
+      <h1>Memories That Last Forever</h1>
+      <p>As the day ends, the joy of Toy Trolley Park lingers — laughter echoes, photos capture smiles, and the spirit of play lives on. Toy Trolley Park 2025 proves that Disneyland is not just a place, but a timeless journey into imagination and fun.</p>`
 },
    {
   id: "5",
@@ -144,37 +175,6 @@ export const OpenBlog = [
       <p>As evening falls, Halloween parades fill the streets with lights, music, and color. Floats shimmer, characters dance, and fireworks paint the sky in hauntingly beautiful patterns. It’s a night where every guest becomes part of the magic.</p>
 
       <p>Halloween 2025 at Disneyland is not just an event — it’s an experience. It’s a celebration of imagination, family, and the joy of playful frights. From morning until night, the park promises memories that will linger long after the last ghostly giggle fades.</p>`
-},
-{
-  id: "1",
-  bgposition: "center",
-  image: "https://i.pinimg.com/1200x/c3/c0/04/c3c004c617941988ca2d1dcd746f08ed.jpg",
-  title: "TOY STORY MANIA",
-  subheading: "Hop aboard a colorful journey where toys, laughter, and adventure come alive.",
-  info: "Disneyland – 29 Mar 2025",
-  mus_1_name: "Elsa of Arendelle",
-  mus_1_info: "Bringing icy magic and dazzling light to every trolley ride.",
-  mus_1_image: "https://i.pinimg.com/736x/92/f1/d5/92f1d5e7ebe2d22a7ae25284f0ffd235.jpg",
-  mus_2_name: "Olaf the Snowman",
-  mus_2_info: "Spreading joy, laughter, and whimsical fun at every turn.",
-  mus_2_image: "https://i.pinimg.com/736x/c5/72/f6/c572f68c23c1ff3f1332169ab0a67e79.jpg",
-  mus_3_name: "Anna of Arendelle",
-  mus_3_info: "Adding courage, cheer, and heartwarming moments.",
-  mus_3_image: "https://i.pinimg.com/1200x/f6/ec/a1/f6eca1f97a6244d541d322bdd3e3b8f7.jpg",
-  description: `<h1>Toy Trolley Park 2025: Where Imagination Rides Free</h1>
-      <p>Toy Trolley Park transforms Disneyland into a vibrant playground where visitors of all ages step into a world of wonder. Every ride, every corner, and every trolley car is infused with playful charm and the joy of discovery.</p>
-
-      <h1>Guided by Beloved Characters</h1>
-      <p>Elsa leads the adventure with magical ice and light, Olaf spreads joy and laughter at every turn, and Anna brings courage and heartwarming fun. Each encounter creates lasting memories and invites guests to embrace the magic of play.</p>
-
-      <h1>Interactive Rides and Adventures</h1>
-      <p>Every trolley ride offers surprises — music, moving toys, and whimsical scenery combine to create an immersive experience. Guests explore imaginative landscapes where toys are alive, stories unfold, and laughter fills the air.</p>
-
-      <h1>A Feast for the Senses</h1>
-      <p>Bright colors, lively tunes, and detailed scenery immerse visitors in a world of playful wonder. Every corner is thoughtfully designed to spark creativity and nostalgia, making both children and adults feel like part of the magic.</p>
-
-      <h1>Memories That Last Forever</h1>
-      <p>As the day ends, the joy of Toy Trolley Park lingers — laughter echoes, photos capture smiles, and the spirit of play lives on. Toy Trolley Park 2025 proves that Disneyland is not just a place, but a timeless journey into imagination and fun.</p>`
 },
 {
   id: "2",

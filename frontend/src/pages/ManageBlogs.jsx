@@ -90,7 +90,7 @@ const ManageBlogs = () => {
         fetchBlogs();
 
         // Optional: redirect to homepage to see the new card
-        navigate("/");
+        navigate("/Home#two");
       } else {
         toast.error("Failed to create blog");
       }

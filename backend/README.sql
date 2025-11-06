@@ -8,5 +8,6 @@ CREATE TABLE blogs (
   readTime VARCHAR(50),
   shortDesc TEXT,
   longDesc TEXT,
-  image VARCHAR(500)
+  image VARCHAR(500),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
