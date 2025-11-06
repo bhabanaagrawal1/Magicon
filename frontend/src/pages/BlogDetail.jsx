@@ -40,7 +40,7 @@ const BlogDetail = () => {
           <p className="text-gray-500 mb-4">
             {blog.date} • {blog.readTime}
           </p>
-          <div className="md:text-[17px] text-[14px]">{blog.longDesc}</div>
+          <div className="md:text-[15px] text-[14px] leading-6 font-sans">{blog.longDesc}</div>
           <Link to="/Home#two" className="text-blue-600 underline mt-7">
             Back to Home
           </Link>

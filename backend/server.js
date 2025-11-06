@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 10000;
 
 const allowedOrigins = [
   "http://localhost:5173", // React dev server
-  "https://magicneverfades.netlify.app", // Your Netlify frontend
+  "https://becausemagicneverfades.netlify.app", // Your Netlify frontend
 ];
 
 const server = http.createServer(async (req, res) => {
