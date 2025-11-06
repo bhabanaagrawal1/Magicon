@@ -71,7 +71,7 @@ const ManageBlogs = () => {
     }
 
     try {
-      const response = await axios.post("https://magicon.onrender.com/blogs", {
+      const response = await axios.post("https://magicon.onrender.com/add-blog", {
         title,
         date,
         readTime,
