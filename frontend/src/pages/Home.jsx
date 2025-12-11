@@ -260,7 +260,7 @@ Discover the heart of Disneyland — the happiest place on Earth.</p>
                 <div className="flex justify-between items-center">
                   <p className="font-semibold text-xs sm:text-sm text-black">
                     {item.date}
-                    <span> &#183; {item.readTime}</span>
+                    <span className='font-sans'> &#183; {item.readTime} min</span>
                   </p>
                   <p
                     onClick={() => handleDelete(item.id)}

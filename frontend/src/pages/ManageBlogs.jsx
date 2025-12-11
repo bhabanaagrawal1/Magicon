@@ -10,18 +10,16 @@ const ManageBlogs = () => {
   const initialState = {
     image: "",
     title: "",
-    date: "",
-    readTime: "",
     shortDesc: "",
     longDesc: "",
   };
 
   const [formValue, setFormValue] = useState(initialState);
   const [fileName, setFileName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { image, title, date, readTime, shortDesc, longDesc } = formValue;
+  const { image, title, shortDesc, longDesc } = formValue;
 
-  // Fetch all blogs (optional if you want to show current list)
   useEffect(() => {
     fetchBlogs();
   }, []);
@@ -36,14 +34,14 @@ const ManageBlogs = () => {
     }
   };
 
-  // Handle input change
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setFormValue({ ...formValue, [name]: value });
   };
 
-  // Upload image to Cloudinary
   const onUploadImage = async (file) => {
+    if (isLoading) return;
+    
     setFileName(file.name);
     const formData = new FormData();
     formData.append("file", file);
@@ -62,19 +60,19 @@ const ManageBlogs = () => {
     }
   };
 
-  // Add new blog
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !longDesc || !shortDesc || !image || !date || !readTime) {
+
+    if (!title || !longDesc || !shortDesc || !image) {
       toast.warn("Please fill all fields");
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const response = await axios.post("https://magicon.onrender.com/add-blog", {
         title,
-        date,
-        readTime,
         shortDesc,
         longDesc,
         image,
@@ -82,14 +80,9 @@ const ManageBlogs = () => {
 
       if (response.status === 201 || response.status === 200) {
         toast.success("Blog created successfully");
-        // reset form
         setFormValue(initialState);
         setFileName("");
-
-        // Fetch updated blogs immediately
         fetchBlogs();
-
-        // Optional: redirect to homepage to see the new card
         navigate("/Home#two");
       } else {
         toast.error("Failed to create blog");
@@ -97,63 +90,79 @@ const ManageBlogs = () => {
     } catch (err) {
       toast.error("Server error - please try again");
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="w-full h-[100vh] p-6 flex flex-col items-center justify-center bg-gray-50 ">
+    <div className="w-full h-[100vh] p-6 flex flex-col items-center justify-center bg-gray-50">
       <div>
         <h1 className="text-3xl font-bold text-center bg-gradient-to-br from-orange-400 to-yellow-300 bg-clip-text text-transparent mb-6">
-        Create Blog Posts
-      </h1>
+          Create Blog Posts
+        </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="grid grid-cols-2 gap-4 bg-white p-6 shadow-lg rounded-lg w-full max-w-xl"
-      >
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={title}
-          onChange={onInputChange}
-          className="border p-2 rounded col-span-2"
-          required
-        />
-
-        <div className="col-span-2">
-          <label className="block mb-1">Upload Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => onUploadImage(e.target.files[0])}
-            className="border p-2 rounded w-full"
-          />
-          {fileName && <p className="text-sm text-gray-600 mt-1">Selected file: {fileName}</p>}
-        </div>
-        <textarea
-          name="shortDesc"
-          placeholder="Short Description"
-          value={shortDesc}
-          onChange={onInputChange}
-          className="border p-2 rounded col-span-2 h-20"
-          required
-        />
-        <textarea
-          name="longDesc"
-          placeholder="Long Description"
-          value={longDesc}
-          onChange={onInputChange}
-          className="border p-2 rounded col-span-2 h-32"
-          required
-        />
-        <button
-          type="submit"
-          className="col-span-2 text-black bg-gradient-to-br from-orange-400 to-yellow-300 p-3 rounded hover:opacity-90 transition font-semibold"
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-2 gap-4 bg-white p-6 shadow-lg rounded-lg w-full max-w-xl"
         >
-          Add Blog
-        </button>
-      </form>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={title}
+            onChange={onInputChange}
+            disabled={isLoading}
+            className="border p-2 rounded col-span-2"
+            required
+          />
+
+          <div className="col-span-2">
+            <label className="block mb-1">Upload Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              disabled={isLoading}
+              onChange={(e) => onUploadImage(e.target.files[0])}
+              className="border p-2 rounded w-full"
+            />
+            {fileName && (
+              <p className="text-sm text-gray-600 mt-1">
+                Selected file: {fileName}
+              </p>
+            )}
+          </div>
+
+          <textarea
+            name="shortDesc"
+            placeholder="Short Description"
+            value={shortDesc}
+            onChange={onInputChange}
+            disabled={isLoading}
+            className="border p-2 rounded col-span-2 h-20"
+            required
+          />
+
+          <textarea
+            name="longDesc"
+            placeholder="Long Description"
+            value={longDesc}
+            onChange={onInputChange}
+            disabled={isLoading}
+            className="border p-2 rounded col-span-2 h-32"
+            required
+          />
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`col-span-2 text-black bg-gradient-to-br from-orange-400 to-yellow-300 p-3 rounded 
+              font-semibold transition 
+              ${isLoading ? "opacity-50 cursor-not-allowed" : "hover:opacity-90"}`}
+          >
+            {isLoading ? "Adding..." : "Add Blog"}
+          </button>
+        </form>
       </div>
     </div>
   );
