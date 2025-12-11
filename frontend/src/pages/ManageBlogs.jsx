@@ -101,14 +101,15 @@ const ManageBlogs = () => {
   };
 
   return (
-    <div className="w-full min-h-screen p-6 flex flex-col items-center justify-center bg-gray-50">
-      <h1 className="text-3xl font-bold text-center bg-gradient-to-br from-orange-400 to-yellow-300 bg-clip-text text-transparent mb-6">
+    <div className="w-full h-[100vh] p-6 flex flex-col items-center justify-center bg-gray-50 ">
+      <div>
+        <h1 className="text-3xl font-bold text-center bg-gradient-to-br from-orange-400 to-yellow-300 bg-clip-text text-transparent mb-6">
         Create Blog Posts
       </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-2 gap-4 bg-white p-6 shadow-lg rounded-lg w-full max-w-4xl"
+        className="grid grid-cols-2 gap-4 bg-white p-6 shadow-lg rounded-lg w-full max-w-xl"
       >
         <input
           type="text"
@@ -130,25 +131,6 @@ const ManageBlogs = () => {
           />
           {fileName && <p className="text-sm text-gray-600 mt-1">Selected file: {fileName}</p>}
         </div>
-
-        <input
-          type="text"
-          name="date"
-          placeholder="Date"
-          value={date}
-          onChange={onInputChange}
-          className="border p-2 rounded w-full"
-          required
-        />
-        <input
-          type="text"
-          name="readTime"
-          placeholder="Read Time"
-          value={readTime}
-          onChange={onInputChange}
-          className="border p-2 rounded w-full"
-          required
-        />
         <textarea
           name="shortDesc"
           placeholder="Short Description"
@@ -172,6 +154,7 @@ const ManageBlogs = () => {
           Add Blog
         </button>
       </form>
+      </div>
     </div>
   );
 };

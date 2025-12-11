@@ -192,11 +192,11 @@ Discover the heart of Disneyland — the happiest place on Earth.</p>
         ].map((item) => (
           <div
             key={item.id}
-            className="p-2 cursor-pointer transition"
+            className="p-4 cursor-pointer transition"
             onClick={() => navigate(`/post/${item.id}#one`)}
           >
             <div className='w-full h-[1px] bg-gray-500'></div>
-            <div className=' hover:bg-gray-300 p-3'>
+            <div className=' hover:bg-gray-300 md-p-3 p-4'>
               <span className="font-semibold text-gray-500">HALLOWEEN</span>
             <span className="pl-3 text-gray-500">OCT 31, 2025</span>
             <h1 className="font-semibold text-sm">{item.title}</h1>
@@ -215,7 +215,7 @@ Discover the heart of Disneyland — the happiest place on Earth.</p>
       </div>
     </div>
     <div
-      className="p-4 cursor-pointer hover:bg-gray-100 transition  md:h-[30%] flex flex-col justify-center"
+      className="md:p-4 pl-8 pr-8 pt-4 pb-4 cursor-pointer hover:bg-gray-100 transition  md:h-[30%] flex flex-col justify-center"
       onClick={() => navigate("/post/4#one")}
     >
       <div>
@@ -239,8 +239,13 @@ Discover the heart of Disneyland — the happiest place on Earth.</p>
       <div className="text-3xl sm:text-4xl md:text-5xl text-black p-4 font-semibold mt-10 mb-7 text-center">
         LATEST <span className="italic font-light">From The</span> BLOG
       </div>
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-6 mb-10">
-        {data &&
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-6 mb-10">
+         {!data && (
+    <p className="w-100 h-auto flex justify-center align-center">
+      Loading...
+    </p>
+  )}
+          {data &&
           data.map((item, index) => (
             <div
               key={index}

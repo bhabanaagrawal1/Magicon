@@ -103,11 +103,11 @@ const post = Sect[id]
         </div>
       </div>
       <div className='w-full md:h-[200vh] h-auto text-center md:m-0'>
-        <div className='md:w-full w-[90%] md:h-[15%] flex justify-center items-center'>
+        <div className='md:w-full w-[100%] md:h-[15%] flex justify-center items-center'>
           <p className='md:text-5xl text-3xl bg-gradient-to-br from-blue-500 to-pink-300 bg-clip-text text-transparent transition-all duration-500 md:mb-0 m-7'>{post.heading}</p>
         </div>
         <div className='w-[1px] h-[165%] bg-gradient-to-b from-purple-200 via-blue-200 to-pink-400 absolute left-1/2 transform md:-translate-x-1/2 hidden md:block'></div>
-        <div className='absolute left-1/2 transform md:-translate-x-1/2 md:flex flex-col justify-between h-[140%] py-15 hidden'>
+        <div className='absolute left-1/2 transform md:-translate-x-[50%] md:flex flex-col justify-between h-[140%] py-13 hidden'>
         <div className='w-5 h-5 bg-gradient-to-br from-blue-400 to-purple-300 rounded-full border-4 border-purple-300 shadow-md'></div>
         <div className='w-5 h-5 bg-gradient-to-br from-blue-400 to-purple-300 rounded-full border-4 border-purple-300 shadow-md'></div>
         <div className='w-5 h-5 bg-gradient-to-br from-blue-400 to-purple-300 rounded-full border-4 border-purple-300 shadow-md'></div>
@@ -115,15 +115,15 @@ const post = Sect[id]
         </div>
         <div className='w-full md:h-[85%] flex justify-center items-center flex-col md:flex-row'>
           <div className='md:w-[50%] w-[90%] h-[90%] flex flex-col items-center'>
-          <div className='md:w-[49%] h-[100%] flex flex-col md:items-center justify-around md:gap-0 gap-10'>
+          <div className='md:w-[49%] h-[100%] flex flex-col items-center justify-around md:gap-0 gap-10'>
             <div className='w-[95%] h-[21%] bg-white shadow-xl/30 rounded-2xl'>
             <img src={post.img_1} alt="" className='object-cover rounded-2xl w-[100%] md:h-[100%] h-[300px]'/>
             </div>
             <div className='w-[95%] h-[21%] flex justify-center items-center bg-white rounded-2xl'>
               <div className='w-[95%] h-[95%] text-left flex justify-center items-center p-3 rounded-2xl hover:shadow-lg/50 hover:scale-102'>
                 <div className='flex flex-col justify-around'>
-                  <h1 className='text-[16px] font-semibold'>{post.titl_1}</h1>
-                  <p className='text-sm '>{post.desc_1}</p>
+                  <h1 className='text-[16px] font-bold'>{post.titl_1}</h1>
+                  <p className='text-[13px] font-sans'>{post.desc_1}</p>
                 </div>
               </div>
             </div>
@@ -133,20 +133,20 @@ const post = Sect[id]
             <div className='w-[95%] h-[21%] flex justify-center items-center bg-white rounded-2xl'>
               <div className='w-[95%] h-[95%] text-left flex justify-center items-center p-3 rounded-2xl hover:shadow-lg/50 hover:scale-102'>
                 <div className='flex flex-col justify-around'>
-                  <h1 className='text-[16px] font-semibold'>{post.titl_3}</h1>
-                  <p className='text-sm '>{post.desc_3}</p>
+                  <h1 className='text-[16px] font-bold'>{post.titl_3}</h1>
+                  <p className='text-[13px] font-sans'>{post.desc_3}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className='md:w-[50%] w-[90%] h-[85%] flex md:flex-col items-center md:mt-0 mt-5'>
-          <div className='md:w-[49%] h-[100%] flex md:flex-col flex-col-reverse items-center justify-around md:gap-0 gap-7'>
+          <div className='md:w-[49%] h-[100%] flex md:flex-col flex-col-reverse items-center justify-around md:gap-0 gap-10'>
             <div className='w-[95%] h-[21%] flex justify-center items-center bg-white rounded-2xl hover:shadow-lg/50 hover:scale-102'>
               <div className='w-[95%] h-[95%] text-left flex justify-center items-center p-3 rounded-2xl'>
                 <div className='flex flex-col justify-around'>
-                  <h1 className='text-[16px] font-semibold'>{post.titl_2}</h1>
-                  <p className='text-sm '>{post.desc_2}</p>
+                  <h1 className='text-[16px] font-bold font-sans'>{post.titl_2}</h1>
+                  <p className='text-[13px] font-sans'>{post.desc_2}</p>
                 </div>
               </div>
             </div>
@@ -156,8 +156,8 @@ const post = Sect[id]
             <div className='w-[95%] h-[21%] flex justify-center items-center bg-white rounded-2xl'>
               <div className='w-[95%] h-[95%] text-left flex justify-center items-center p-3 rounded-2xl hover:shadow-lg/50 hover:scale-102'>
                 <div className='flex flex-col justify-around'>
-                  <h1 className='text-[16px] font-semibold'>{post.titl_4}</h1>
-                  <p className='text-sm '>{post.desc_4}</p>
+                  <h1 className='text-[16px] font-bold'>{post.titl_4}</h1>
+                  <p className='text-[13px] font-sans'>{post.desc_4}</p>
                 </div>
               </div>
             </div>
