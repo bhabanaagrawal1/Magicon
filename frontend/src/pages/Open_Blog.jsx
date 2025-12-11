@@ -50,34 +50,6 @@ const Open_Blog = () => {
             </div>
         </div>
     </div>
-    {/* <div className='w-full md:h-[90vh] flex justify-center items-center'>
-        <div className='w-[95%] md:h-[90%] flex flex-col items-center'>
-            <h1 className='text-4xl mb-5 font-semibold'>DISNEY STARS</h1>
-        <div className='md:w-[80%] md:h-[90%] flex md:justify-evenly md:items-center md:flex-row flex-col w-[90%]'>
-            <div className='md:w-[30%] h-[90%]'>
-                <p className='w-[100%] md:h-[15%] md:p-3 p-2 flex justify-center items-center'>
-                    <div className='w-[90%] h-[100%] text-center'>{data.mus_1_info}</div>
-                </p>
-                <img src={data.mus_1_image} className='object-cover w-[100%] md:h-[85%] h-[400px]' alt="" />
-                <h1 className='text-3xl lg:-translate-y-75 md:-translate-y-70 -translate-y-80 rotate-90 -translate-x-[46%]'>{data.mus_1_name}</h1>
-            </div>
-            <div className='md:w-[30%] h-[90%]'>
-                <p className='w-[100%] md:h-[15%] md:p-3 p-2 flex justify-center items-center'>
-                    <div className='w-[90%] h-[100%] text-center'>{data.mus_2_info}</div>
-                </p>
-                <img src={data.mus_2_image} className='object-cover w-[100%] md:h-[85%] h-[400px]' alt="" />
-                <h1 className='text-3xl lg:-translate-y-75  md:-translate-y-70 -translate-y-80 rotate-90 -translate-x-[46%]'>{data.mus_2_name}</h1>
-            </div>
-            <div className='md:w-[30%] h-[90%]'>
-                <p className='w-[100%] h-[15%] md:p-3 p-2 flex justify-center items-center'>
-                    <div className='w-[90%] h-[100%] text-center'>{data.mus_3_info}</div>
-                </p>
-                <img src={data.mus_3_image} className='object-cover w-[100%] md:h-[85%] h-[400px]' alt="" />
-                <h1 className='text-3xl lg:-translate-y-75  md:-translate-y-70 -translate-y-80 rotate-90 -translate-x-[46%]'>{data.mus_3_name}</h1>
-            </div>
-        </div>
-        </div>
-    </div> */}
     <div className="w-full md:h-[90vh] flex justify-center items-center">
   <div className="w-[95%] md:h-[90%] flex flex-col items-center">
     <h1 className="text-4xl mb-5 font-semibold">DISNEY STARS</h1>

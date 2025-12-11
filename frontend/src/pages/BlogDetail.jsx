@@ -38,7 +38,7 @@ const BlogDetail = () => {
         <div className="md:w-[50%] m-10 w-[100%]">
           <h1 className="text-3xl font-bold mb-2">{blog.title}</h1>
           <p className="text-gray-500 mb-4">
-            {blog.date} • {blog.readTime}
+            {blog.date} • {blog.readTime} min
           </p>
           <div className="md:text-[15px] text-[14px] leading-6 font-sans">{blog.longDesc}</div>
           <Link to="/Home#two" className="text-blue-600 underline mt-7">
